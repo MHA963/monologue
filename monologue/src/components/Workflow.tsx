@@ -69,7 +69,7 @@ export const Workflow = () => {
                     {steps.map((step, i) => {
                         const start = i / steps.length;
                         const end = (i + 1) / steps.length;
-                        const opacity = useTransform(scrollYProgress, [start, start + 0.1, end - 0.1, end], [0, 1, 1, 0]);
+                        const opacity = useTransform(scrollYProgress, [start - 0.2, start + 0.1, end - 0.1, end + 0.2], [0, 1, 1, 0]);
                         const scale = useTransform(scrollYProgress, [start, end], [1.1, 1]);
 
                         return (
