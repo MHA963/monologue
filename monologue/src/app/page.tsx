@@ -41,7 +41,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen selection:bg-brand-red selection:text-brand-beige overflow-x-hidden bg-brand-beige">
+    <div className="min-h-screen selection:bg-brand-red selection:text-brand-beige overflow-x-clip bg-brand-beige">
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-brand-red z-[60] origin-left"

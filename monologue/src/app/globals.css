@@ -13,7 +13,6 @@
   body {
     @apply bg-brand-beige text-brand-red selection:bg-brand-red selection:text-brand-beige antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
-    overflow-x: hidden;
   }
 
   h1,
