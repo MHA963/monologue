@@ -86,16 +86,16 @@ const Hero = () => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
   return (
-    <section ref={targetRef} className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-20">
+    <section ref={targetRef} className="relative h-[100dvh] flex flex-col items-center justify-center overflow-hidden px-4 md:px-6 pt-20 isolate">
       <motion.div 
         style={{ y, opacity, scale }}
-        className="text-center z-10"
+        className="text-center z-10 w-full"
       >
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-6xl md:text-8xl lg:text-9xl font-light mb-8 leading-[0.9] tracking-tighter"
+          className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light mb-6 md:mb-8 leading-[0.95] md:leading-[0.9] tracking-tighter"
         >
           Give your text <br />
           <span className="font-bold italic">a soul.</span>
@@ -105,7 +105,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="text-lg md:text-xl max-w-2xl mx-auto mb-12 opacity-80 text-balance"
+          className="text-base md:text-xl max-w-2xl mx-auto mb-8 md:mb-12 opacity-80 text-balance px-4"
         >
           Monologue uses advanced neural synthesis to transform written words into hyper-realistic audio that captures emotion, nuance, and rhythm.
         </motion.p>
@@ -114,10 +114,10 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="flex justify-center mt-8"
+          className="flex justify-center mt-4 md:mt-8"
         >
           <div 
-            className="flex items-center gap-6 cursor-pointer group"
+            className="flex flex-col md:flex-row items-center gap-4 md:gap-6 cursor-pointer group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -125,9 +125,9 @@ const Hero = () => {
             <motion.div 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-24 h-24 bg-brand-red text-brand-beige rounded-full flex items-center justify-center shadow-2xl shadow-brand-red/30 relative z-10"
+              className="w-20 h-20 md:w-32 md:h-32 bg-brand-red text-brand-beige rounded-full flex items-center justify-center shadow-2xl shadow-brand-red/30 relative z-10"
             >
-              <Play size={36} fill="currentColor" className="ml-1" />
+              <Play size={28} fill="currentColor" className="ml-1 md:size-12" />
               
               {/* Pulsing ring */}
               <motion.div 
@@ -138,9 +138,9 @@ const Hero = () => {
             </motion.div>
 
             {/* Soundwave & Text Container */}
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">
               {/* Soundwave */}
-              <div className="flex items-center gap-1.5 h-12">
+              <div className="flex items-center gap-1 md:gap-1.5 h-8 md:h-12">
                 {[0.4, 0.8, 0.5, 1, 0.6, 0.9, 0.4, 0.7, 0.5, 0.8, 0.6, 0.4].map((h, i) => (
                   <motion.div
                     key={i}
@@ -157,14 +157,14 @@ const Hero = () => {
                       delay: i * 0.05,
                       ease: "easeInOut"
                     } : { duration: 0.3 }}
-                    className="w-1.5 rounded-full"
+                    className="w-1 md:w-1.5 rounded-full"
                   />
                 ))}
               </div>
               
               {/* Text */}
               <div className="overflow-hidden">
-                <span className="text-2xl font-display font-medium whitespace-nowrap tracking-tight">
+                <span className="text-xl md:text-2xl font-display font-medium whitespace-nowrap tracking-tight">
                   Listen to Samples
                 </span>
               </div>
@@ -201,9 +201,10 @@ const HorizontalCarousel = () => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-400vw"]);
 
   const slides = [
     {
@@ -235,23 +236,23 @@ const HorizontalCarousel = () => {
 
   return (
     <section ref={targetRef} id="features" className="relative h-[500vh]">
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] flex items-center overflow-hidden">
         <motion.div style={{ x }} className="flex">
           {slides.map((slide, i) => (
-            <div key={i} className="relative w-screen h-screen flex-shrink-0">
+            <div key={i} className="relative w-screen h-[100dvh] flex-shrink-0">
               <img 
                 src={slide.image} 
                 alt={slide.title} 
                 className="absolute inset-0 w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-brand-red/60 via-brand-red/40 to-brand-red/80 flex flex-col items-center justify-center text-center px-6">
+              <div className="absolute inset-0 bg-gradient-to-b from-brand-red/70 via-brand-red/50 to-brand-red/90 flex flex-col items-center justify-center text-center px-4 md:px-6">
                 <div className="max-w-5xl">
                   <motion.h2 
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-6xl md:text-8xl lg:text-9xl font-bold text-brand-beige mb-8 tracking-tighter leading-none"
+                    className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-brand-beige mb-4 md:mb-8 tracking-tighter leading-none"
                   >
                     {slide.title}
                   </motion.h2>
@@ -259,18 +260,18 @@ const HorizontalCarousel = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="text-xl md:text-3xl text-brand-beige/90 max-w-3xl mx-auto leading-relaxed font-light"
+                    className="text-lg md:text-3xl text-brand-beige/90 max-w-3xl mx-auto leading-relaxed font-light px-4"
                   >
                     {slide.description}
                   </motion.p>
                 </div>
                 
-                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-4">
-                  <span className="text-brand-beige/40 text-sm font-mono tracking-widest uppercase">0{i + 1} / 05</span>
-                  <div className="w-32 h-[1px] bg-brand-beige/20 relative">
+                <div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-4">
+                  <span className="text-brand-beige/40 text-xs md:text-sm font-mono tracking-widest uppercase">0{i + 1} / 05</span>
+                  <div className="w-24 md:w-32 h-[1px] bg-brand-beige/20 relative">
                     <motion.div 
                       className="absolute top-0 left-0 h-full bg-brand-beige"
-                      style={{ width: "20%" }} // Simple indicator
+                      style={{ width: `${(i + 1) * 20}%` }}
                     />
                   </div>
                 </div>
@@ -310,11 +311,11 @@ const StickyPinSection = () => {
 
   return (
     <section ref={containerRef} id="how-it-works" className="relative h-[300vh]">
-      <div className="sticky top-0 h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 overflow-hidden">
-        <div className="w-full md:w-1/2 max-w-xl">
-          <h2 className="text-4xl md:text-6xl font-bold mb-12">The workflow of <br /> the future.</h2>
+      <div className="sticky top-0 h-[100dvh] flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-4 md:px-6 overflow-hidden">
+        <div className="w-full md:w-1/2 max-w-xl text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 md:mb-12">The workflow of <br /> the future.</h2>
           
-          <div className="relative h-64">
+          <div className="relative h-48 md:h-64">
             {steps.map((step, i) => {
               const start = i / steps.length;
               const end = (i + 1) / steps.length;
@@ -327,13 +328,13 @@ const StickyPinSection = () => {
                   style={{ opacity, y }}
                   className="absolute inset-0"
                 >
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="w-8 h-8 rounded-full bg-brand-red text-brand-beige flex items-center justify-center font-bold text-sm">
+                  <div className="flex items-center justify-center md:justify-start gap-3 md:gap-4 mb-3 md:mb-4">
+                    <span className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-brand-red text-brand-beige flex items-center justify-center font-bold text-xs md:text-sm">
                       0{i + 1}
                     </span>
-                    <h3 className="text-3xl font-bold">{step.title}</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold">{step.title}</h3>
                   </div>
-                  <p className="text-xl opacity-70 leading-relaxed">
+                  <p className="text-base md:text-xl opacity-70 leading-relaxed px-4 md:px-0">
                     {step.description}
                   </p>
                 </motion.div>
@@ -342,7 +343,7 @@ const StickyPinSection = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 h-[400px] md:h-[600px] relative rounded-3xl overflow-hidden bg-brand-red/5">
+        <div className="w-full md:w-1/2 h-[300px] sm:h-[400px] md:h-[600px] relative rounded-2xl md:rounded-3xl overflow-hidden bg-brand-red/5">
           {steps.map((step, i) => {
             const start = i / steps.length;
             const end = (i + 1) / steps.length;
@@ -368,32 +369,32 @@ const StickyPinSection = () => {
 
 const Testimonial = ({ id }: { id?: string }) => {
   return (
-    <section id={id} className="py-32 px-6 bg-brand-red text-brand-beige overflow-hidden">
+    <section id={id} className="py-20 md:py-32 px-4 md:px-6 bg-brand-red text-brand-beige overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-8 md:mb-12"
         >
-          <div className="flex gap-1 mb-6 justify-center">
+          <div className="flex gap-1 mb-4 md:mb-6 justify-center">
             {[...Array(5)].map((_, i) => (
-              <Zap key={i} size={20} fill="currentColor" />
+              <Zap key={i} size={16} className="md:size-20" fill="currentColor" />
             ))}
           </div>
-          <blockquote className="text-3xl md:text-5xl lg:text-6xl font-light italic leading-tight mb-12">
+          <blockquote className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light italic leading-tight mb-8 md:mb-12 px-2">
             "Monologue has completely transformed our content strategy. What used to take days of recording and editing now takes minutes, and the quality is indistinguishable from a real human voice."
           </blockquote>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-3 md:gap-4">
             <img 
               src="https://picsum.photos/seed/avatar/100/100" 
               alt="Avatar" 
-              className="w-16 h-16 rounded-full border-2 border-brand-beige/20"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-brand-beige/20"
               referrerPolicy="no-referrer"
             />
             <div className="text-left">
-              <p className="font-bold text-xl">Sarah Jenkins</p>
-              <p className="opacity-60">Director of Content, AudioFlow</p>
+              <p className="font-bold text-lg md:text-xl">Sarah Jenkins</p>
+              <p className="opacity-60 text-sm md:text-base">Director of Content, AudioFlow</p>
             </div>
           </div>
         </motion.div>
@@ -404,17 +405,17 @@ const Testimonial = ({ id }: { id?: string }) => {
 
 const CTA = () => {
   return (
-    <section className="py-40 px-6 text-center relative overflow-hidden">
+    <section className="py-24 md:py-40 px-4 md:px-6 text-center relative overflow-hidden">
       <div className="max-w-4xl mx-auto relative z-10">
-        <h2 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter">Ready to be heard?</h2>
-        <p className="text-xl opacity-70 mb-12 max-w-2xl mx-auto">
+        <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tighter">Ready to be heard?</h2>
+        <p className="text-lg md:text-xl opacity-70 mb-8 md:mb-12 max-w-2xl mx-auto px-4">
           Join 50,000+ creators, podcasters, and developers who are building the future of audio with Monologue.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-10 py-5 bg-brand-red text-brand-beige rounded-full text-lg font-bold hover:scale-105 transition-transform">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center px-6">
+          <button className="px-8 md:px-10 py-4 md:py-5 bg-brand-red text-brand-beige rounded-full text-base md:text-lg font-bold hover:scale-105 transition-transform">
             Get Started for Free
           </button>
-          <button className="px-10 py-5 border border-brand-red/20 rounded-full text-lg font-bold hover:bg-brand-red/5 transition-colors">
+          <button className="px-8 md:px-10 py-4 md:py-5 border border-brand-red/20 rounded-full text-base md:text-lg font-bold hover:bg-brand-red/5 transition-colors">
             Contact Sales
           </button>
         </div>
@@ -422,8 +423,8 @@ const CTA = () => {
       
       {/* Background Blobs */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10 opacity-30">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-brand-red/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-brand-red/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
     </section>
   );
@@ -431,16 +432,16 @@ const CTA = () => {
 
 const Footer = () => {
   return (
-    <footer className="py-20 px-6 border-t border-brand-red/10">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-        <div className="col-span-2">
+    <footer className="py-12 md:py-20 px-6 border-t border-brand-red/10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+        <div className="sm:col-span-2">
           <div className="flex items-center gap-2 mb-6">
             <div className="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center">
               <div className="w-4 h-4 bg-brand-beige rounded-sm rotate-45" />
             </div>
             <span className="font-display font-bold text-xl tracking-tighter">monologue</span>
           </div>
-          <p className="max-w-xs opacity-60 mb-8">
+          <p className="max-w-xs opacity-60 mb-8 text-sm md:text-base">
             The world's most advanced text-to-audio platform. Built for creators who demand quality and nuance.
           </p>
           <div className="flex gap-4">
@@ -456,30 +457,32 @@ const Footer = () => {
           </div>
         </div>
         
-        <div>
-          <h4 className="font-bold mb-6">Product</h4>
-          <ul className="space-y-4 opacity-60 text-sm">
-            <li><a href="#" className="hover:text-brand-red transition-colors">Features</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Voices</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">API</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Pricing</a></li>
-          </ul>
-        </div>
+        <div className="grid grid-cols-2 gap-8 sm:contents">
+          <div>
+            <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Product</h4>
+            <ul className="space-y-4 opacity-60 text-sm">
+              <li><a href="#" className="hover:text-brand-red transition-colors">Features</a></li>
+              <li><a href="#" className="hover:text-brand-red transition-colors">Voices</a></li>
+              <li><a href="#" className="hover:text-brand-red transition-colors">API</a></li>
+              <li><a href="#" className="hover:text-brand-red transition-colors">Pricing</a></li>
+            </ul>
+          </div>
 
-        <div>
-          <h4 className="font-bold mb-6">Company</h4>
-          <ul className="space-y-4 opacity-60 text-sm">
-            <li><a href="#" className="hover:text-brand-red transition-colors">About</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Blog</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Careers</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Privacy</a></li>
-          </ul>
+          <div>
+            <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Company</h4>
+            <ul className="space-y-4 opacity-60 text-sm">
+              <li><a href="#" className="hover:text-brand-red transition-colors">About</a></li>
+              <li><a href="#" className="hover:text-brand-red transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-brand-red transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-brand-red transition-colors">Privacy</a></li>
+            </ul>
+          </div>
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-brand-red/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs opacity-40 uppercase tracking-widest font-bold">
+      <div className="max-w-7xl mx-auto mt-16 md:mt-20 pt-8 border-t border-brand-red/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] md:text-xs opacity-40 uppercase tracking-widest font-bold text-center md:text-left">
         <p>© 2024 Monologue AI. All rights reserved.</p>
-        <div className="flex gap-8">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
           <a href="#">Terms of Service</a>
           <a href="#">Cookie Policy</a>
           <a href="#">Security</a>
@@ -522,7 +525,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen selection:bg-brand-red selection:text-brand-beige">
+    <div className="min-h-screen bg-brand-beige text-brand-red font-sans selection:bg-brand-red selection:text-brand-beige">
       {/* Progress Bar */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-brand-red z-[60] origin-left"
