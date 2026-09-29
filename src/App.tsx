@@ -19,6 +19,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import { audioManager } from './lib/audioManager';
 
 // --- Components ---
 
@@ -125,6 +126,11 @@ const Hero = () => {
             <motion.div 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={async (e) => {
+                e.stopPropagation();
+                await audioManager.unlock();
+                audioManager.createTone(523.25, 0.4);
+              }}
               className="w-20 h-20 md:w-32 md:h-32 bg-brand-red text-brand-beige rounded-full flex items-center justify-center shadow-2xl shadow-brand-red/30 relative z-10"
             >
               <Play size={28} fill="currentColor" className="ml-1 md:size-12" />
@@ -504,7 +510,7 @@ export default function App() {
     restDelta: 0.001
   });
 
-  React.useEffect(() => {
+    React.useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       const heroHeight = window.innerHeight - 100;
@@ -520,8 +526,11 @@ export default function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      audioManager.destroy();
+    };
   }, []);
 
   return (
