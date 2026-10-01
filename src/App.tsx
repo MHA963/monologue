@@ -50,7 +50,7 @@ const Navbar = ({ isVisible }: { isVisible: boolean }) => {
           </button>
         </div>
 
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden" aria-label="Toggle navigation menu" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
